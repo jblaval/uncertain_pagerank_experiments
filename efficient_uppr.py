@@ -124,9 +124,3 @@ def efficient_UPPR(
         ),
     )
     return np.array([permuted_pagerank[permutation.index(i)] for i in range(n)])
-
-
-if __name__ == "__main__":
-    G = UncertainGraph()
-    G.BuildGraphFromTxt("data/test.txt")
-    print(efficient_UPPR(G))
