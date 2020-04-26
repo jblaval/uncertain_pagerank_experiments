@@ -4,9 +4,6 @@ from matplotlib import pyplot as plt
 from multipledispatch import dispatch
 
 
-UNCERTAINTY = 0.5
-
-
 class UncertainGraph:
     def __init__(self):
         self.NodesNb = 0
@@ -21,7 +18,7 @@ class UncertainGraph:
         self.Edges.add((src, dst, edge_type))
         self.EdgesNb += 1
 
-    def BuildGraphFromTxt(self, data_path, uncertainty=UNCERTAINTY):
+    def BuildGraphFromTxt(self, data_path, uncertainty=0.5):
         with open(data_path) as f:
             for row in f:
                 nodes = [int(x) for x in row.split()]
@@ -55,6 +52,19 @@ class UncertainGraph:
         for edge in self.Edges:
             src, dst, edge_type = edge
             self.AdjacencyMatrix[src, dst] += edge_type
+
+    def ChangeBase(self, permutation_list):
+        assert len(permutation_list) == self.NodesNb
+        newAdjacencyMatrix = np.zeros((self.NodesNb, self.NodesNb))
+        for i in range(self.NodesNb):
+            for j in range(self.NodesNb):
+                newAdjacencyMatrix[i][j] = self.AdjacencyMatrix[permutation_list[i]][
+                    permutation_list[j]
+                ]
+        self.AdjacencyMatrix = newAdjacencyMatrix
+        self.Edges = set()
+        self.EdgesNb = 0
+        self.BuildGraphFromAdjacencyMatrix(self.AdjacencyMatrix)
 
     def Display(self, with_labels=True, pagerank=False):
         nx.draw_networkx(

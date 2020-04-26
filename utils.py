@@ -3,11 +3,6 @@ from itertools import combinations
 from graphs import UncertainGraph
 
 
-def simple_split(graph):
-    half = graph.NodesNb / 2
-    return [set(range(int(half))), set(range(int(half), graph.NodesNb))]
-
-
 def generate_seed_set(graph, seed_ratio=None, nb_seed=None):
     if nb_seed:
         pass
@@ -31,3 +26,21 @@ def get_possible_worlds(graph):
     for world in possible_uncertain_worlds:
         possible_worlds.append(set(world) | certain_edges)
     return possible_worlds
+
+
+def inverse_block_diagonal_matrix(matrix, block_dimensions):
+    n = len(matrix)
+    assert sum(block_dimensions) == n
+    inversed_matrix = np.zeros((n, n))
+    i = 0
+    block = 0
+    while block < len(block_dimensions):
+        current_block = matrix[
+            i : i + block_dimensions[block], i : i + block_dimensions[block]
+        ]
+        inversed_matrix[
+            i : i + block_dimensions[block], i : i + block_dimensions[block]
+        ] = current_block
+        i += block_dimensions[block]
+        block += 1
+    return inversed_matrix

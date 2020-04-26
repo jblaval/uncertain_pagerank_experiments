@@ -1,8 +1,9 @@
 import numpy as np
 from itertools import combinations
-from pagerank import PersonalizedPageRank
+from standard_pagerank import PersonalizedPageRank
 from graphs import UncertainGraph
-from utils import simple_split, generate_seed_set, get_possible_worlds
+from utils import generate_seed_set, get_possible_worlds
+from split import simple_split
 
 
 def exhPPR(graph, alpha=0.85, seed_ratio=0.5, seed_set=None):
