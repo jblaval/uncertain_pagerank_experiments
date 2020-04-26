@@ -72,10 +72,8 @@ def efficient_UPPR(
     P = [g.AdjacencyMatrix for g in graph_list_P]
     for world in P:
         for null_row in np.where(~(T_BL + T_X + world).any(axis=1)):
-            world[null_row] = np.full(
-                n, 1 / n
-                )
-        normalization_matrix += np.dot(1/n, world)
+            world[null_row] = np.full(n, 1 / n)
+        normalization_matrix += np.dot(1 / n, world)
     row_sums = normalization_matrix.sum(axis=1).reshape(-1, 1)
     for matrix in [T_BL, T_X] + P:
         matrix = np.transpose(matrix / row_sums)

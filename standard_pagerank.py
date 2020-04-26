@@ -10,9 +10,7 @@ def PersonalizedPageRank(graph, alpha=0.85, seed_ratio=0.5, seed_set=None):
         raise Exception("Cannot compute PageRank on an empty graph.")
     graph.NormalizedAdjacencyMatrix = deepcopy(graph.AdjacencyMatrix)
     for null_row in np.where(~graph.NormalizedAdjacencyMatrix.any(axis=1)):
-        graph.NormalizedAdjacencyMatrix[null_row] = np.full(
-            n, 1 / n
-        )
+        graph.NormalizedAdjacencyMatrix[null_row] = np.full(n, 1 / n)
     row_sums = graph.NormalizedAdjacencyMatrix.sum(axis=1).reshape(-1, 1)
     graph.NormalizedAdjacencyMatrix /= row_sums
 
