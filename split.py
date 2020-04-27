@@ -63,7 +63,7 @@ def kernighan_lin(graph, accuracy=30, nb_iterations=10):
     return [set(np.where(np.array(best_p) == i)[0]) for i in range(2)]
 
 
-def generalized_kernighan_lin(graph, accuracy=30, nb_part=8, nb_iterations=10):
+def generalized_kernighan_lin(graph, accuracy=30, nb_part=2, nb_iterations=10):
     assert nb_part >= 2
     assert nb_part <= graph.NodesNb
     if nb_part == 2:

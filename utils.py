@@ -44,3 +44,7 @@ def inverse_block_diagonal_matrix(matrix, block_dimensions):
         i += block_dimensions[block]
         block += 1
     return inversed_matrix
+
+
+def distance(vector1, vector2):
+    return np.linalg.norm(vector2 - vector1)
